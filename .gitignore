@@ -1,3 +1,5 @@
 
 #remove .class java class files
 *.class
+
+*.zip
