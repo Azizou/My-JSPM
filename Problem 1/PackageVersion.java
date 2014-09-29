@@ -1,3 +1,11 @@
+/**
+ * @author Azizou Ogbone
+ * This class modelled a version number for a package an then sort them. 
+ * It implements the Comparable interface because the order used in sorthing
+ * is not the natural order used for strings.
+ */
+
+import java.util.*;
 
 public class PackageVersion implements Comparable<PackageVersion>{
 	
@@ -31,7 +39,7 @@ public class PackageVersion implements Comparable<PackageVersion>{
 		partial_name = x + "." + y+"." + z;
 		
 		if(heyphen!=-1){
-			type = version.substring(heyphen + 2);
+			type = version.substring(heyphen + 1);
 			if(type_version_pos!=-1)
 				type_version = Integer.parseInt(version.substring(heyphen + type_version_pos + 2));
 		}
@@ -55,7 +63,8 @@ public class PackageVersion implements Comparable<PackageVersion>{
 	 * @return the name
 	 */
 	public String getName() {
-		return "\"" + name + "\"";
+		//return "\"" + name + "\"";
+      return name;
 	}
 
 	/**
@@ -167,11 +176,30 @@ public class PackageVersion implements Comparable<PackageVersion>{
 			if(o.type.equals("")) return -1;
 			if(type.compareTo(o.type)<0) return -1;
 			if(type.compareTo(o.type)>0) return 1;
-			if(type_version<o.type_version) return -1;
-			if(type_version>o.type_version) return 1;
+			//if(type_version<o.type_version) return -1;
+			//if(type_version>o.type_version) return 1;
 			
 		return 0;
 	}
+   
+   public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// for testing: String[] test = {"1.2.3","0.0.5","1.5.3-alpha.2","2.0.0","200.153.99","2.0.0-beta.1","2.0.0-beta.2","1.5.3-alpha"};
+		ArrayList<PackageVersion> versions= new ArrayList<PackageVersion>();
+		for(int i=0;i<args.length;i++){
+			versions.add(new PackageVersion(args[i]));
+		}
+		Collections.sort(versions);
+		System.out.print("[");
+      int curr = 0; //control the comma separator
+		for(PackageVersion version: versions){
+			System.out.print(version.getName());
+         if(curr + 1<args.length)System.out.print(", ");
+         curr++;//increment num of item printed
+		}
+		System.out.println("]");
+	}
+
 	
 	
 }

@@ -1,4 +1,3 @@
 
-.DS_Store
+#remove .class java class files
 *.class
-README copy.md
